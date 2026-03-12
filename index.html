@@ -757,17 +757,36 @@
 <footer>
   <div class="footer-logo">LOGOI</div>
   <ul class="footer-links">
-    <li><a href="/cdn-cgi/l/email-protection#630a0d050c230f0c040c0a4d000c4d1902"><span class="__cf_email__" data-cfemail="94fdfaf2fbd4f8fbf3fbfdbaf7fbbaeef5">[email&#160;protected]</span></a></li>
+    <li><a href="mailto:info@logoi.co.za">info@logoi.co.za</a></li>
     <li><a href="#">LinkedIn</a></li>
     <li><a href="#">Privacy</a></li>
   </ul>
   <div class="footer-copy">© 2026 Logoi. All rights reserved.</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Scroll reveal
+<script>
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.targ
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Fallback — reveal everything after 2 seconds in case observer fails
+  setTimeout(() => {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }, 2000);
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
