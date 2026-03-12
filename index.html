@@ -434,10 +434,15 @@
   }
 
   .reveal {
-    opacity: 0; transform: translateY(32px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Mobile fallback — show all content immediately */
+  @media (max-width: 768px) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
 
   /* ── SUBTLE GRID OVERLAY ── */
   body::before {
@@ -752,25 +757,17 @@
 <footer>
   <div class="footer-logo">LOGOI</div>
   <ul class="footer-links">
-    <li><a href="mailto:info@logoi.co.za">info@logoi.co.za</a></li>
+    <li><a href="/cdn-cgi/l/email-protection#630a0d050c230f0c040c0a4d000c4d1902"><span class="__cf_email__" data-cfemail="94fdfaf2fbd4f8fbf3fbfdbaf7fbbaeef5">[email&#160;protected]</span></a></li>
     <li><a href="#">LinkedIn</a></li>
     <li><a href="#">Privacy</a></li>
   </ul>
   <div class="footer-copy">© 2026 Logoi. All rights reserved.</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
-
-  // Smooth nav highlight
-  document.querySelectorAll('a[href^="#"
+        setTimeout(() => entry.targ
