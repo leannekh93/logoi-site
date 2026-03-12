@@ -451,6 +451,96 @@
 
   * { position: relative; z-index: 1; }
   nav, footer { z-index: 100; }
+
+  /* ── MOBILE RESPONSIVE ── */
+  @media (max-width: 768px) {
+
+    /* NAV */
+    nav {
+      padding: 16px 20px;
+    }
+    .nav-links { display: none; }
+    .nav-cta {
+      padding: 8px 16px; font-size: 0.82rem;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 120px 24px 80px;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.12em;
+      text-align: center; padding: 6px 14px;
+    }
+    h1 { font-size: 2.2rem; }
+    .hero-sub { font-size: 1rem; margin-top: 20px; }
+    .hero-actions {
+      flex-direction: column; align-items: center;
+      gap: 12px; margin-top: 36px;
+    }
+    .btn-primary, .btn-ghost {
+      width: 100%; text-align: center; padding: 16px 24px;
+    }
+    .hero-trust {
+      flex-direction: column; gap: 24px;
+      margin-top: 48px; padding-top: 32px;
+    }
+    .trust-divider { width: 40px; height: 1px; }
+
+    /* SECTIONS */
+    section { padding: 70px 24px; }
+
+    /* PROBLEM */
+    .problem-section { padding: 70px 24px; }
+    .problem-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    /* WHAT WE DO */
+    .what-section { padding: 70px 24px; }
+    .what-intro {
+      grid-template-columns: 1fr;
+      gap: 40px; margin-bottom: 40px;
+    }
+
+    /* SERVICES */
+    .services-section { padding: 70px 24px; }
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+    .service-card { padding: 36px 28px; }
+
+    /* WHY */
+    .why-section { padding: 70px 24px; }
+    .why-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    /* CTA */
+    .cta-section { padding: 80px 24px; }
+
+    /* FOOTER */
+    footer {
+      flex-direction: column;
+      gap: 20px; text-align: center;
+      padding: 40px 24px;
+    }
+    .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+
+    /* HEADINGS */
+    h2 { font-size: 1.8rem; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 1.9rem; line-height: 1.2; }
+    h2 { font-size: 1.6rem; }
+    .hero-eyebrow { font-size: 0.65rem; }
+    .service-card { padding: 28px 20px; }
+    .pillar { padding: 20px; }
+  }
 </style>
 </head>
 <body>
@@ -466,7 +556,7 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#why">Why Logoi</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Book a Call</a>
+  <a href="https://cal.com/logoi.digital/30min" target="_blank" class="nav-cta">Book a Call</a>
 </nav>
 
 <!-- HERO -->
@@ -475,7 +565,7 @@
   <h1>Your business works hard.<br><em>Your systems should too.</em></h1>
   <p class="hero-sub">Logoi builds the operational backbone that brings order to a growing business — without the tech overwhelm.</p>
   <div class="hero-actions">
-    <a href="#contact" class="btn-primary">Book a Free Discovery Call →</a>
+    <a href="https://cal.com/logoi.digital/30min" target="_blank" class="btn-primary">Book a Free Discovery Call →</a>
     <a href="#what" class="btn-ghost">See How It Works</a>
   </div>
   <div class="hero-trust">
@@ -490,8 +580,8 @@
     </div>
     <div class="trust-divider"></div>
     <div class="trust-item">
-      <span class="trust-num">100%</span>
-      <span class="trust-label">South African Focused</span>
+      <span class="trust-num">Global</span>
+      <span class="trust-label">Remote Delivery</span>
     </div>
   </div>
 </div>
@@ -653,7 +743,7 @@
     <div class="section-label" style="justify-content:center;">Get started</div>
     <h2>Not sure where to start?<br>Most of our clients felt the same way.</h2>
     <p>Start with a single conversation — no commitment, no sales pitch. Just an honest look at where your business is and what could be better.</p>
-    <a href="mailto:info@logoi.co.za" class="btn-primary">Book a Free Discovery Call →</a>
+    <a href="https://cal.com/logoi.digital/30min" target="_blank" class="btn-primary">Book a Free Discovery Call →</a>
     <p class="cta-micro">30 minutes &nbsp;·&nbsp; No obligation &nbsp;·&nbsp; We'll tell you exactly what we see</p>
   </div>
 </div>
@@ -669,7 +759,7 @@
   <div class="footer-copy">© 2026 Logoi. All rights reserved.</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -683,12 +773,4 @@
   reveals.forEach(el => observer.observe(el));
 
   // Smooth nav highlight
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-    });
-  });
-</script>
-</body>
-</html>
+  document.querySelectorAll('a[href^="#"

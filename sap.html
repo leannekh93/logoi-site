@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logoi — Sales Accelerator Program</title>
+<!-- No index — hidden from search engines -->
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111214;
+    --card: #16181c;
+    --border: #2a2d33;
+    --teal: #00c9a7;
+    --teal-dim: #00c9a720;
+    --teal-mid: #00c9a740;
+    --white: #f5f4f0;
+    --muted: #8a8f9a;
+    --gold: #f0c060;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* GRID OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  * { position: relative; z-index: 1; }
+  nav { z-index: 100; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(10,10,10,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--serif); font-size: 1.3rem; letter-spacing: 0.12em;
+    color: var(--white); text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--teal);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    background: linear-gradient(160deg, var(--teal-mid), transparent);
+  }
+
+  .nav-tag {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--teal); border: 1px solid var(--teal-mid);
+    padding: 4px 12px; font-weight: 600;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 140px 40px 100px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 60%, rgba(0,201,167,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 20%, rgba(240,192,96,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; letter-spacing: 0.2em; font-weight: 600;
+    color: var(--teal); text-transform: uppercase;
+    border: 1px solid var(--teal-mid);
+    padding: 6px 18px; margin-bottom: 40px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--teal); }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700; line-height: 1.18;
+    max-width: 820px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  h1 em { font-style: normal; color: var(--teal); }
+  h1 .gold { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted); font-weight: 300;
+    max-width: 580px; margin: 28px auto 0;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; margin-top: 48px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .btn-primary {
+    background: var(--teal); color: var(--black);
+    padding: 16px 36px; font-family: var(--sans); font-weight: 700;
+    font-size: 0.95rem; letter-spacing: 0.04em;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: all 0.25s; display: inline-block;
+  }
+  .btn-primary:hover { background: #00e8c0; transform: translateY(-2px); }
+
+  .btn-gold {
+    background: var(--gold); color: var(--black);
+    padding: 16px 36px; font-family: var(--sans); font-weight: 700;
+    font-size: 0.95rem; letter-spacing: 0.04em;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: all 0.25s; display: inline-block;
+  }
+  .btn-gold:hover { background: #f5d080; transform: translateY(-2px); }
+
+  .hero-badges {
+    display: flex; gap: 24px; margin-top: 56px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  .badge {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; color: var(--muted); font-weight: 500;
+  }
+  .badge::before {
+    content: '✓';
+    color: var(--teal); font-weight: 700; font-size: 0.9rem;
+  }
+
+  /* SECTION GENERIC */
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--teal); font-weight: 600; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after { content: ''; flex: 0 0 40px; height: 1px; background: var(--teal); }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700; line-height: 1.25;
+  }
+
+  /* ABOUT LOGOI */
+  .about-section {
+    padding: 100px 60px;
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+
+  .about-text h2 { margin-bottom: 24px; }
+  .about-text p { color: var(--muted); font-weight: 300; margin-bottom: 20px; font-size: 1.02rem; }
+  .about-text p strong { color: var(--white); font-weight: 600; }
+
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  }
+
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 32px 28px; text-align: center;
+    transition: all 0.25s;
+  }
+  .stat-card:hover { border-color: var(--teal-mid); }
+
+  .stat-num {
+    font-family: var(--serif); font-size: 2.2rem; font-weight: 700;
+    color: var(--teal); display: block; margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 0.82rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* PROGRAM SECTION */
+  .program-section {
+    padding: 100px 60px;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .program-header { margin-bottom: 60px; }
+
+  .program-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+    margin-bottom: 60px;
+  }
+
+  .program-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 40px 36px; position: relative; overflow: hidden;
+    transition: all 0.3s;
+  }
+  .program-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--teal); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .program-card:hover::before { transform: scaleX(1); }
+  .program-card:hover { background: #1a1c20; }
+
+  .program-icon {
+    font-size: 2rem; margin-bottom: 20px; display: block;
+  }
+
+  .program-card h3 {
+    font-family: var(--serif); font-size: 1.3rem; font-weight: 700;
+    margin-bottom: 14px; color: var(--white);
+  }
+
+  .program-card p {
+    color: var(--muted); font-size: 0.93rem; font-weight: 300; line-height: 1.75;
+  }
+
+  /* EARN SECTION */
+  .earn-section {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 100px 60px;
+  }
+
+  .earn-inner { max-width: 1100px; margin: 0 auto; }
+  .earn-header { margin-bottom: 60px; }
+
+  .earn-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .earn-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 40px 32px; text-align: center;
+    transition: all 0.25s;
+  }
+  .earn-card:hover { border-color: var(--gold); background: #1a1c20; }
+
+  .earn-stage {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; margin-bottom: 16px;
+  }
+
+  .earn-amount {
+    font-family: var(--serif); font-size: 2.4rem; font-weight: 700;
+    color: var(--gold); margin-bottom: 8px;
+  }
+
+  .earn-desc {
+    font-size: 0.88rem; color: var(--muted); font-weight: 300;
+  }
+
+  .earn-note {
+    background: var(--teal-dim); border: 1px solid var(--teal-mid);
+    padding: 20px 28px;
+    font-size: 0.9rem; color: var(--white); font-weight: 400;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .earn-note::before { content: '★'; color: var(--gold); font-size: 1.1rem; }
+
+  /* IDEAL SECTION */
+  .ideal-section {
+    padding: 100px 60px;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .ideal-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    margin-top: 60px;
+  }
+
+  .ideal-col h3 {
+    font-family: var(--serif); font-size: 1.3rem; margin-bottom: 28px;
+  }
+
+  .ideal-list {
+    list-style: none; display: flex; flex-direction: column; gap: 14px;
+  }
+
+  .ideal-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 0.95rem; color: var(--muted); font-weight: 300;
+  }
+
+  .ideal-list li .icon { font-size: 1rem; margin-top: 2px; }
+
+  .ideal-col.yes .ideal-list li .icon { color: var(--teal); }
+  .ideal-col.no .ideal-list li .icon { color: #ff6b6b; }
+
+  /* FORM SECTION */
+  .form-section {
+    background: linear-gradient(135deg, #0d1a17 0%, #0a0a0a 50%, #0d1117 100%);
+    border-top: 1px solid var(--border);
+    padding: 100px 60px;
+  }
+
+  .form-inner {
+    max-width: 800px; margin: 0 auto;
+  }
+
+  .form-header { text-align: center; margin-bottom: 60px; }
+  .form-header h2 { margin-bottom: 16px; }
+  .form-header p { color: var(--muted); font-size: 1rem; font-weight: 300; }
+
+  .form-embed {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 8px; min-height: 600px;
+  }
+
+  .form-embed iframe {
+    width: 100%; min-height: 580px; border: none;
+    background: transparent;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo { font-family: var(--serif); font-size: 1.1rem; letter-spacing: 0.1em; color: var(--muted); }
+  .footer-links { display: flex; gap: 32px; list-style: none; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--teal); }
+  .footer-copy { font-size: 0.78rem; color: #444; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-tag { display: none; }
+    .hero { padding: 120px 24px 80px; }
+    h1 { font-size: 2rem; }
+    .hero-sub { font-size: 0.97rem; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn-primary, .btn-gold { text-align: center; }
+    .hero-badges { flex-direction: column; align-items: center; gap: 12px; }
+    .about-section { padding: 70px 24px; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .program-section { padding: 70px 24px; }
+    .program-grid { grid-template-columns: 1fr; }
+    .earn-section { padding: 70px 24px; }
+    .earn-grid { grid-template-columns: 1fr; }
+    .ideal-section { padding: 70px 24px; }
+    .ideal-grid { grid-template-columns: 1fr; gap: 40px; }
+    .form-section { padding: 70px 24px; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
+    .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+    h2 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://logoi.digital" class="nav-logo">
+    <div class="logo-mark"></div>
+    LOGOI
+  </a>
+  <div class="nav-tag">Sales Accelerator Program</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Referral Access Only — SAP 2026</div>
+  <h1>Learn to sell.<br><em>Earn while you do.</em><br>Build a <span class="gold">real career.</span></h1>
+  <p class="hero-sub">The Logoi Sales Accelerator Program gives you structured training, a proven script, and real commissions — all while working remotely from anywhere.</p>
+  <div class="hero-actions">
+    <a href="#apply" class="btn-gold">Apply Now — Limited Spots →</a>
+    <a href="#program" class="btn-primary">See How It Works</a>
+  </div>
+  <div class="hero-badges">
+    <div class="badge">100% Remote</div>
+    <div class="badge">Commission on every sale</div>
+    <div class="badge">Structured training included</div>
+    <div class="badge">Placement for top performers</div>
+  </div>
+</div>
+
+<!-- ABOUT LOGOI -->
+<div class="about-section">
+  <div class="about-inner">
+    <div class="about-text reveal">
+      <div class="section-label">Who you're joining</div>
+      <h2>You're not joining a startup. You're joining a system.</h2>
+      <p>Logoi is a <strong>business automation consultancy</strong> that helps established business owners bring order to their operations. We design and implement the systems that protect and grow revenue.</p>
+      <p>As part of the SAP, you'll represent Logoi directly — connecting with business owners, presenting real solutions, and closing deals that make a difference to their business.</p>
+      <p>You get <strong>training, support, and a proven approach.</strong> We get a driven salesperson who earns what they close.</p>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat-card">
+        <span class="stat-num">40+</span>
+        <span class="stat-label">Businesses Served</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Core Service Areas</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Remote Delivery</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">Real</span>
+        <span class="stat-label">Commissions Paid</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRAM -->
+<div class="program-section" id="program">
+  <div class="program-header reveal">
+    <div class="section-label">The program</div>
+    <h2>Everything you need to close your first deal — and your tenth.</h2>
+  </div>
+  <div class="program-grid">
+    <div class="program-card reveal">
+      <span class="program-icon">📋</span>
+      <h3>Sales Training</h3>
+      <p>You'll learn exactly how to approach business owners, identify their pain points, and present Logoi's solutions with confidence. No prior sales experience required — just strong communication skills and drive.</p>
+    </div>
+    <div class="program-card reveal">
+      <span class="program-icon">📝</span>
+      <h3>Proven Script & Process</h3>
+      <p>You won't be guessing what to say. We give you a tested sales script, objection handling guides, and a step-by-step process that has already converted real clients.</p>
+    </div>
+    <div class="program-card reveal">
+      <span class="program-icon">🎯</span>
+      <h3>Live Sales Experience</h3>
+      <p>This isn't theory. You'll be making real outreach, having real conversations, and closing real deals. By the end of the program you'll have proven sales experience you can show any employer.</p>
+    </div>
+    <div class="program-card reveal">
+      <span class="program-icon">🚀</span>
+      <h3>Placement for Top Performers</h3>
+      <p>Hit your targets and we actively support your next step — whether that's a permanent remote sales role, a referral to our network, or continued growth within Logoi.</p>
+    </div>
+  </div>
+</div>
+
+<!-- EARN -->
+<div class="earn-section">
+  <div class="earn-inner">
+    <div class="earn-header reveal">
+      <div class="section-label">What you earn</div>
+      <h2>Commission on every sale. No ceiling.</h2>
+    </div>
+    <div class="earn-grid">
+      <div class="earn-card reveal">
+        <div class="earn-stage">First Sale</div>
+        <div class="earn-amount">You earn</div>
+        <div class="earn-desc">Commission paid on your very first closed deal — no waiting period, no minimum threshold</div>
+      </div>
+      <div class="earn-card reveal">
+        <div class="earn-stage">Ongoing</div>
+        <div class="earn-amount">Per Close</div>
+        <div class="earn-desc">Every deal you close pays commission. The more you close, the more you earn — simple</div>
+      </div>
+      <div class="earn-card reveal">
+        <div class="earn-stage">Top Performer</div>
+        <div class="earn-amount">+ Placement</div>
+        <div class="earn-desc">Hit your targets and unlock active placement support into a permanent remote sales role</div>
+      </div>
+    </div>
+    <div class="earn-note reveal">
+      Commission structure and exact rates are discussed during your onboarding call after a successful application.
+    </div>
+  </div>
+</div>
+
+<!-- WHO IT'S FOR -->
+<div class="ideal-section">
+  <div class="section-label reveal">Who this is for</div>
+  <h2 class="reveal">This program is built for the right person.<br>Are you them?</h2>
+  <div class="ideal-grid">
+    <div class="ideal-col yes reveal">
+      <h3>✅ You're a great fit if...</h3>
+      <ul class="ideal-list">
+        <li><span class="icon">✓</span> You communicate clearly and confidently</li>
+        <li><span class="icon">✓</span> You're self-motivated and don't need hand-holding</li>
+        <li><span class="icon">✓</span> You want real experience, not just a certificate</li>
+        <li><span class="icon">✓</span> You're comfortable working remotely and independently</li>
+        <li><span class="icon">✓</span> You're hungry to earn based on your effort</li>
+        <li><span class="icon">✓</span> You take feedback and apply it quickly</li>
+      </ul>
+    </div>
+    <div class="ideal-col no reveal">
+      <h3>❌ This isn't for you if...</h3>
+      <ul class="ideal-list">
+        <li><span class="icon">✗</span> You need a fixed salary to feel secure</li>
+        <li><span class="icon">✗</span> You struggle with rejection or pressure</li>
+        <li><span class="icon">✗</span> You're looking for a passive income shortcut</li>
+        <li><span class="icon">✗</span> You're not willing to follow a structured process</li>
+        <li><span class="icon">✗</span> You can't commit consistent time each week</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-section" id="apply">
+  <div class="form-inner">
+    <div class="form-header reveal">
+      <div class="section-label" style="justify-content:center;">Apply now</div>
+      <h2>Ready to start?<br>Spots are limited.</h2>
+      <p>Fill in the form below. We review every application personally and get back to you within 48 hours.</p>
+    </div>
+    <div class="form-embed reveal">
+      <iframe
+        src="https://app.youform.com/forms/jqnt8f4p"
+        loading="lazy"
+        width="100%"
+        height="600"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title="Logoi SAP Application">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">LOGOI</div>
+  <ul class="footer-links">
+    <li><a href="https://logoi.digital">Main Site</a></li>
+    <li><a href="mailto:info@logoi.co.za">info@logoi.co.za</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Logoi. All rights reserved.</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
