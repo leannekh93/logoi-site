@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logoi — Global Automation Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111214;
+    --card: #16181c;
+    --border: #2a2d33;
+    --teal: #00c9a7;
+    --teal-dim: #00c9a715;
+    --teal-mid: #00c9a740;
+    --white: #f5f4f0;
+    --muted: #8a8f9a;
+    --gold: #f0c060;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #060608;
+    font-family: var(--sans);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .flyer {
+    width: 100%;
+    max-width: 600px;
+    background: var(--black);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .flyer::before {
+    content: '';
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .flyer::after {
+    content: '';
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 300px;
+    background: radial-gradient(ellipse, rgba(0,201,167,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* HEADER */
+  .flyer-header {
+    padding: 48px 48px 36px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    text-align: center;
+  }
+
+  .logo-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; margin-bottom: 28px;
+  }
+
+  .logo-mark {
+    width: 32px; height: 32px;
+    border: 1.5px solid var(--teal);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    background: linear-gradient(160deg, var(--teal-mid), transparent);
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: var(--serif); font-size: 1.4rem;
+    letter-spacing: 0.2em; color: var(--white);
+  }
+
+  /* Global badge */
+  .global-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, rgba(0,201,167,0.15), rgba(240,192,96,0.1));
+    border: 1px solid var(--teal-mid);
+    padding: 6px 18px; margin-bottom: 24px;
+    font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; font-weight: 700;
+    color: var(--teal);
+  }
+  .global-badge::before { content: '🌍'; font-size: 0.9rem; }
+
+  .flyer-title {
+    font-family: var(--serif);
+    font-size: 2rem; font-weight: 700;
+    line-height: 1.2; color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .flyer-title em { font-style: normal; color: var(--teal); }
+
+  .flyer-sub {
+    font-size: 0.88rem; color: var(--muted); font-weight: 300;
+    max-width: 420px; margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Market comparison strip */
+  .market-strip {
+    display: flex; border-top: 1px solid var(--border);
+    margin-top: 28px;
+  }
+
+  .market-item {
+    flex: 1; padding: 14px 12px; text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .market-item:last-child { border-right: none; }
+
+  .market-label {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 4px;
+  }
+
+  .market-price {
+    font-family: var(--serif); font-size: 0.95rem; font-weight: 700;
+    color: #ff6b6b;
+  }
+
+  .market-note {
+    font-size: 0.62rem; color: var(--muted); margin-top: 2px;
+  }
+
+  /* Value arrow */
+  .value-arrow {
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px; gap: 8px;
+    background: linear-gradient(90deg, transparent, rgba(0,201,167,0.05), transparent);
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem; color: var(--teal); font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  /* PRODUCTS */
+  .products {
+    padding: 0 32px 32px;
+  }
+
+  .product-card {
+    border: 1px solid var(--border);
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+    background: var(--card);
+  }
+
+  .product-card.featured { border-color: var(--teal-mid); }
+  .product-card.premium { border-color: rgba(240,192,96,0.3); }
+
+  .tag {
+    position: absolute; top: 0; right: 0;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 5px 14px;
+  }
+  .tag.teal { background: var(--teal); color: var(--black); }
+  .tag.gold { background: var(--gold); color: var(--black); }
+  .tag.value { background: #ff6b6b; color: var(--white); }
+
+  .product-top {
+    padding: 28px 28px 0;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+
+  .product-num {
+    font-family: var(--serif); font-size: 3rem; font-weight: 700;
+    color: var(--teal); opacity: 0.15; line-height: 1;
+    flex-shrink: 0; margin-top: -8px;
+  }
+  .product-card.premium .product-num { color: var(--gold); }
+
+  .product-info { flex: 1; }
+
+  .product-name {
+    font-family: var(--serif); font-size: 1.2rem; font-weight: 700;
+    color: var(--white); margin-bottom: 2px;
+  }
+
+  .product-tagline {
+    font-size: 0.8rem; color: var(--teal); font-weight: 500; font-style: italic;
+  }
+  .product-card.premium .product-tagline { color: var(--gold); }
+
+  /* Dual pricing */
+  .dual-price {
+    display: flex; gap: 12px; margin-top: 10px; align-items: baseline; flex-wrap: wrap;
+  }
+
+  .price-main {
+    font-family: var(--serif); font-size: 1.6rem; font-weight: 700; color: var(--white);
+  }
+
+  .price-main span {
+    font-family: var(--sans); font-size: 0.75rem; color: var(--muted); font-weight: 400;
+  }
+
+  .price-alt {
+    font-size: 0.82rem; color: var(--muted);
+    border-left: 1px solid var(--border); padding-left: 12px;
+  }
+
+  .price-alt strong { color: var(--teal); }
+
+  /* Market context */
+  .market-context {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.7rem; color: #888; margin-top: 6px;
+    font-style: italic;
+  }
+  .market-context::before { content: '💡'; font-size: 0.75rem; }
+
+  .card-divider { height: 1px; background: var(--border); margin: 0 28px; }
+
+  .product-body { padding: 16px 28px 28px; }
+
+  .product-desc {
+    font-size: 0.88rem; color: var(--muted); font-weight: 300;
+    line-height: 1.75; margin-bottom: 18px;
+  }
+
+  .product-features {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+  }
+
+  .product-features li {
+    font-size: 0.83rem; color: var(--muted);
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .product-features li::before {
+    content: '→'; color: var(--teal); font-size: 0.75rem; flex-shrink: 0;
+  }
+  .product-card.premium .product-features li::before { color: var(--gold); }
+
+  .includes-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.72rem; color: var(--teal); font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    border: 1px solid var(--teal-mid); padding: 4px 10px;
+    margin-bottom: 14px;
+  }
+
+  /* GUARANTEE */
+  .guarantee {
+    margin: 0 32px;
+    border: 1px solid var(--teal-mid);
+    background: var(--teal-dim);
+    padding: 20px 24px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+
+  .guarantee-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+
+  .guarantee h4 {
+    font-family: var(--sans); font-weight: 700; font-size: 0.88rem;
+    color: var(--teal); margin-bottom: 4px;
+  }
+
+  .guarantee p {
+    font-size: 0.8rem; color: var(--muted); font-weight: 300; margin: 0;
+  }
+
+  /* FOOTER */
+  .flyer-footer {
+    margin-top: 24px;
+    padding: 28px 48px;
+    border-top: 1px solid var(--border);
+    background: var(--dark);
+  }
+
+  .footer-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .footer-cta { font-size: 0.82rem; color: var(--muted); }
+  .footer-cta strong { color: var(--teal); display: block; font-size: 0.88rem; }
+
+  .footer-domain {
+    font-family: var(--serif); font-size: 1rem;
+    color: var(--white); letter-spacing: 0.08em;
+  }
+  .footer-domain span { color: var(--teal); }
+
+  .footer-tagline {
+    font-size: 0.72rem; color: #444; text-align: center;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding-top: 16px; border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="flyer">
+
+  <!-- HEADER -->
+  <div class="flyer-header">
+    <div class="logo-row">
+      <div class="logo-mark"></div>
+      <div class="logo-text">LOGOI</div>
+    </div>
+
+    <div class="global-badge">Global Automation Suite</div>
+
+    <h1 class="flyer-title">Built for service businesses<br>that are <em>ready to grow.</em></h1>
+    <p class="flyer-sub">Three done-for-you automation systems. Set up once. No monthly fees. No tech skills required. Delivered remotely anywhere in the world.</p>
+
+    <!-- Market comparison -->
+    <div class="market-strip">
+      <div class="market-item">
+        <div class="market-label">US agencies charge</div>
+        <div class="market-price">$5,000–$15,000</div>
+        <div class="market-note">for same setup</div>
+      </div>
+      <div class="market-item">
+        <div class="market-label">UK agencies charge</div>
+        <div class="market-price">£2,000–£5,000</div>
+        <div class="market-note">minimum entry</div>
+      </div>
+      <div class="market-item">
+        <div class="market-label">Logoi delivers</div>
+        <div class="market-price" style="color:var(--teal)">From $200</div>
+        <div class="market-note">once-off, no retainer</div>
+      </div>
+    </div>
+
+    <div class="value-arrow">
+      ✦ &nbsp; Same result. Fraction of the cost. Zero ongoing fees. &nbsp; ✦
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="products">
+
+    <!-- Product 1 -->
+    <div class="product-card">
+      <div class="tag value">Best Value</div>
+      <div class="product-top">
+        <div class="product-num">01</div>
+        <div class="product-info">
+          <div class="product-name">Never Miss a Lead</div>
+          <div class="product-tagline">Lead Capture Automation</div>
+          <div class="dual-price">
+            <div class="price-main">$200 <span>USD once-off</span></div>
+            <div class="price-alt">≈ <strong>£158 GBP</strong></div>
+          </div>
+          <div class="market-context">US agencies charge $2,000–$5,000 for this</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="product-body">
+        <p class="product-desc">Every missed call costs you a client. This system responds instantly via WhatsApp, captures the lead, and books the appointment — while you're on the job.</p>
+        <ul class="product-features">
+          <li>Missed call → instant WhatsApp response</li>
+          <li>Automatic booking flow</li>
+          <li>24hr appointment reminder</li>
+          <li>Post-job follow up message</li>
+          <li>Referral request trigger</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card featured">
+      <div class="tag teal">Most Popular</div>
+      <div class="product-top">
+        <div class="product-num">02</div>
+        <div class="product-info">
+          <div class="product-name">Serious Bookings Only</div>
+          <div class="product-tagline">Booking + Deposit Automation</div>
+          <div class="dual-price">
+            <div class="price-main">$375 <span>USD once-off</span></div>
+            <div class="price-alt">≈ <strong>£295 GBP</strong></div>
+          </div>
+          <div class="market-context">UK minimum for this workflow: £2,000+</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="product-body">
+        <div class="includes-badge">✓ Includes Product 01</div>
+        <p class="product-desc">No-shows waste time and fuel. Every booking through this system requires a small deposit — filtering out time wasters automatically before they reach your calendar.</p>
+        <ul class="product-features">
+          <li>Everything in Never Miss a Lead</li>
+          <li>Deposit-protected booking system</li>
+          <li>Stripe / PayPal payment integration</li>
+          <li>Automatic deposit confirmation</li>
+          <li>Zero no-shows. Zero wasted trips.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card premium">
+      <div class="tag gold">Full System</div>
+      <div class="product-top">
+        <div class="product-num">03</div>
+        <div class="product-info">
+          <div class="product-name">Always In Front</div>
+          <div class="product-tagline">Full Marketing Automation</div>
+          <div class="dual-price">
+            <div class="price-main">$800 <span>USD once-off</span></div>
+            <div class="price-alt">≈ <strong>£630 GBP</strong></div>
+          </div>
+          <div class="market-context">US equivalent: $5,000–$15,000 setup</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="product-body">
+        <div class="includes-badge" style="color:var(--gold);border-color:rgba(240,192,96,0.3)">✓ Includes Products 01 & 02</div>
+        <p class="product-desc">A complete automated marketing engine that keeps your business visible, follows up with past clients, and generates referrals — without you lifting a finger.</p>
+        <ul class="product-features">
+          <li>Everything in Products 01 & 02</li>
+          <li>Automated WhatsApp broadcasts to past clients</li>
+          <li>Seasonal promotions sent automatically</li>
+          <li>Google review requests after every job</li>
+          <li>Referral reward system</li>
+          <li>Full lead nurture sequence</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GUARANTEE -->
+  <div class="guarantee">
+    <div class="guarantee-icon">🛡</div>
+    <div>
+      <h4>Delivered remotely. Set up completely. Guaranteed to work.</h4>
+      <p>We set everything up for you — no tech skills needed on your end. Once it's live, it runs automatically. No monthly fees. No ongoing costs. Just results.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="flyer-footer">
+    <div class="footer-top">
+      <div class="footer-cta">
+        <strong>Book a free discovery call</strong>
+        cal.com/logoi.digital
+      </div>
+      <div class="footer-domain">logoi<span>.digital</span></div>
+    </div>
+    <div class="footer-tagline">Structural Intelligence · Remote Delivery · Global Service</div>
+  </div>
+
+</div>
+
+</body>
+</html>
